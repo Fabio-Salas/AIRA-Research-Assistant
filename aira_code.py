@@ -21,17 +21,29 @@ st.write("""
 
 My name is AIRA your *AI-based Research Assistant*. \
 I simulate the capabilities of a research assistant for the systematic review of literature. \
-You upload a set of thematically related studies in PDF formato and I construct a matrix of specialized literature review in excel format.
+You upload a set of thematically related studies in PDF format and I construct a matrix of specialized literature review in excel format.
 """)
 
 with st.chat_message("user"):
     st.write("Please select the set of papers (in PDF format) that make up your literature.")
 
 uploaded_files = st.file_uploader("Choose a PDF file", accept_multiple_files=True)
+
 for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
     st.write("filename:", uploaded_file.name)
-    st.write(bytes_data)
+
+    # Use PyMuPDF to extract text from the PDF
+    pdf_document = fitz.open(stream=bytes_data, filetype="pdf")
+    num_pages = pdf_document.page_count
+    st.write(f"Number of Pages: {num_pages}")
+
+    for page_num in range(num_pages):
+        page = pdf_document[page_num]
+        text = page.get_text("text")
+        st.write(f"Page {page_num + 1} Text:\n{text}")
+
+    pdf_document.close()
     
 with st.chat_message("user"):
     st.write("Here is a matrix of specialized literature review.")
