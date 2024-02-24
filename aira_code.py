@@ -22,7 +22,7 @@ Your AI-based Research Assistant
 """)
 
 # Set the base directory for storing user-specific folders
-base_directory = "user_pdfs"
+base_directory = "/content/drive/MyDrive/Hackaton QLAB 24/PDFs de usuario"
 
 # Function to create a user-specific folder and save the PDF
 def save_pdf(user_id, pdf_file):
