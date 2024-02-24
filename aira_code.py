@@ -18,11 +18,14 @@ import pandas as pd
  
 st.write("""
 # AIRA 
-Your AI-based Research Assistant
+
+My name is AIRA your *AI-based Research Assistant*. \
+I simulate the capabilities of a research assistant for the systematic review of literature. \
+You upload a set of thematically related studies in PDF formato and I construct a matrix of specialized literature review in excel format.
 """)
 
 with st.chat_message("user"):
-    st.write("Hola 👋 ¿Qué quieres saber de la literatura?")
+    st.write("Please select the set of papers (in PDF format) that make up your literature.")
 
 uploaded_files = st.file_uploader("Choose a PDF file", accept_multiple_files=True)
 for uploaded_file in uploaded_files:
@@ -30,6 +33,6 @@ for uploaded_file in uploaded_files:
     st.write("filename:", uploaded_file.name)
     st.write(bytes_data)
     
-
-
+with st.chat_message("user"):
+    st.write("Here is a matrix of specialized literature review.")
 
