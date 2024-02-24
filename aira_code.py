@@ -22,7 +22,7 @@ import tempfile
 import pandas as pd
 
 # Set up OpenAI API
-os.environ["OPENAI_API_KEY"] = "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"
+os.environ["OPENAI_API_KEY"] = apikey
 llm = OpenAI(temperature=0)
 
 
