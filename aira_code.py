@@ -21,6 +21,20 @@ st.write("""
 Your AI-based Research Assistant
 """)
 
+# Set the base directory for storing user-specific folders
+base_directory = "user_pdfs"
+
+# Function to create a user-specific folder and save the PDF
+def save_pdf(user_id, pdf_file):
+    user_folder = os.path.join(base_directory, str(user_id))
+    os.makedirs(user_folder, exist_ok=True)  # Create user folder if not exists
+
+    pdf_path = os.path.join(user_folder, pdf_file.name)
+    with open(pdf_path, "wb") as f:
+        f.write(pdf_file.read())
+
+    return pdf_path
+
 uploaded_files = st.file_uploader("Choose a PDF file", accept_multiple_files=True)
 for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
