@@ -21,16 +21,11 @@ import os
 import tempfile
 import pandas as pd
 
-# Set up OpenAI API
-os.environ["OPENAI_API_KEY"] = apikey
-llm = OpenAI(temperature=0)
 
-
-# Streamlit App
 st.title("AIRA ")
-
  
 st.write("""
+
 My name is AIRA your *AI-based Research Assistant*. \
 I simulate the capabilities of a research assistant for the systematic review of literature. \
 You upload a set of thematically related studies in PDF format and I construct a matrix of specialized literature review in excel format.
@@ -42,46 +37,9 @@ with st.chat_message("user"):
 uploaded_files = st.file_uploader("Choose a PDF file", accept_multiple_files=True)
 for uploaded_file in uploaded_files:
     bytes_data = uploaded_file.read()
+    st.write("filename:", uploaded_file.name)
 
 
 with st.chat_message("user"):
     st.write("Here is a matrix of specialized literature review.")
 
-
-
-
-"""
-
-def summarize_pdfs_from_folder(pdfs_folder):
-    summaries = []
-    for pdf_file in pdfs_folder:
-        with tempfile.NamedTemporaryFile(delete=False) as temp_file:
-            temp_path = temp_file.name
-            temp_file.write(pdf_file.read())
-        
-        loader = PyPDFLoader(temp_path)
-        docs = loader.load_and_split()
-        chain = load_summarize_chain(llm, chain_type="map_reduce")
-        summary = chain.run(docs)
-        summaries.append(summary)
-
-        # Delete the temporary file
-        os.remove(temp_path)
-    
-    return summaries
-
-
-# Allow user to upload PDF files
-pdf_files = st.file_uploader("Upload PDF files", type="pdf", accept_multiple_files=True)
-
-if pdf_files:
-    # Generate summaries when the "Generate Summary" button is clicked
-    if st.button("Generate Summary"):
-        st.write("Summaries:")
-        summaries = summarize_pdfs_from_folder(pdf_files)
-        for i, summary in enumerate(summaries):
-            st.write(f"Summary for PDF {i+1}:")
-            st.write(summary)
-
-
-"""
