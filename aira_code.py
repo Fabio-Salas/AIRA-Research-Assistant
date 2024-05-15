@@ -165,7 +165,7 @@ chunks_dict
 
 
 
-OPENAI_API_KEY = "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" #own key
+OPENAI_API_KEY = "" #own key
 
 openaiEmbedding = OpenAIEmbeddingFunction(
         api_key=OPENAI_API_KEY,
